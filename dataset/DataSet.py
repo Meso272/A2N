@@ -7,7 +7,7 @@ from torch.utils import data
 import torchvision.transforms as transforms
 
 class DataSet(data.Dataset):
-    def __init__(self, h5_file_root, patch_size=48, scale=4):
+    def __init__(self, h5_file_root, patch_size=64, scale=2):
         super(DataSet, self).__init__()
         #self.h5_file = h5_file_root
         self.patch_size = patch_size
@@ -65,7 +65,7 @@ class DataSet(data.Dataset):
         lr = self.lr[index]
         lr = transforms.ToTensor()(lr)
         hr = transforms.ToTensor()(hr)
-        print(lr.size())
+
         lr, hr = self.random_crop(lr, hr, self.patch_size, self.scale)
         lr, hr = self.random_vertical_flip(lr, hr)
         lr, hr = self.random_horizontal_flip(lr, hr)
