@@ -40,7 +40,7 @@ def train():
     # 数据载入
     train_data = DataSet(opt.train_root)
     for data in train_data:
-        print data.size()
+        print (data.size())
     '''
     valid_data = ValidDataset(opt.validation_root)
 
