@@ -9,9 +9,15 @@ import torchvision.transforms as transforms
 class DataSet(data.Dataset):
     def __init__(self, h5_file_root, patch_size=48, scale=4):
         super(DataSet, self).__init__()
-        self.h5_file = h5_file_root
+        #self.h5_file = h5_file_root
         self.patch_size = patch_size
         self.scale = scale
+        h5f = h5py.File(h5_file_root, "r")
+
+
+        self.hr = [v[:] for v in h5f["HR"].values()]
+        
+        self.lr = [v[:] for v in h5f["X2"].values()] 
 
     @staticmethod
     def random_crop(lr, hr, size, upscale):
@@ -53,8 +59,9 @@ class DataSet(data.Dataset):
 
     def __getitem__(self, index):
         with h5py.File(self.h5_file, 'r') as f:
-            hr = torch.from_numpy(f['HR'][str(index)][::])
-            lr = torch.from_numpy(f['X2'][str(index)][::])
+            hr = self.hr[index]
+
+            lr = self.lr[index]
             lr = transforms.ToTensor()(lr)
             hr = transforms.ToTensor()(hr)
             lr, hr = self.random_crop(lr, hr, self.patch_size, self.scale)
