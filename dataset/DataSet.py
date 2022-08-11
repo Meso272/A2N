@@ -4,7 +4,7 @@ import h5py
 import random
 from PIL import Image
 from torch.utils import data
-
+import torchvision.transforms as transforms
 
 class DataSet(data.Dataset):
     def __init__(self, h5_file_root, patch_size=48, scale=4):
@@ -53,8 +53,10 @@ class DataSet(data.Dataset):
 
     def __getitem__(self, index):
         with h5py.File(self.h5_file, 'r') as f:
-            hr = torch.from_numpy(f['hr'][str(index)][::])
-            lr = torch.from_numpy(f['lr'][str(index)][::])
+            hr = torch.from_numpy(f['HR'][str(index)][::])
+            lr = torch.from_numpy(f['X2'][str(index)][::])
+            lr = transforms.ToTensor()(lr)
+            hr = transforms.ToTensor()(hr)
             lr, hr = self.random_crop(lr, hr, self.patch_size, self.scale)
             lr, hr = self.random_vertical_flip(lr, hr)
             lr, hr = self.random_horizontal_flip(lr, hr)
@@ -63,7 +65,7 @@ class DataSet(data.Dataset):
 
     def __len__(self):
         with h5py.File(self.h5_file, 'r') as f:
-            return len(f['hr'])
+            return len(f['HR'])
 
 
 class ValidDataset(data.Dataset):
@@ -73,12 +75,12 @@ class ValidDataset(data.Dataset):
 
     def __getitem__(self, index):
         with h5py.File(self.h5_root, 'r') as f:
-            hr = torch.from_numpy(f['hr'][str(index)][::])
-            lr = torch.from_numpy(f['lr'][str(index)][::])
+            hr = torch.from_numpy(f['X2'][str(index)][::])
+            lr = torch.from_numpy(f['X2'][str(index)][::])
 
             return lr, hr
 
     def __len__(self):
         with h5py.File(self.h5_root, 'r') as f:
-            return len(f['hr'])
+            return len(f['HR'])
 

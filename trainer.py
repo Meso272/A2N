@@ -39,7 +39,10 @@ def transfer_state_dict(pretrain_dict, model_dict):
 def train():
     # 数据载入
     train_data = DataSet(opt.train_root)
+    print(train_data.__len__)
+    '''
     valid_data = ValidDataset(opt.validation_root)
+
 
     train_data_loader = DataLoader(train_data, batch_size=opt.batch_size, shuffle=True, num_workers=opt.num_workers)
     valid_data_loader = DataLoader(valid_data, batch_size=1)
@@ -104,7 +107,7 @@ def train():
             best_weight = copy.deepcopy(net.state_dict())
     print('best_epoch {}, best_psnr {:.3f}'.format(best_epoch, best_psnr))
     torch.save(best_weight, 'best_4xAAN_weight.pth')
-
+    '''
 
 if __name__ == '__main__':
     train()
