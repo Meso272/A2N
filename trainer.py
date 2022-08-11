@@ -39,8 +39,8 @@ def transfer_state_dict(pretrain_dict, model_dict):
 def train():
     # 数据载入
     train_data = DataSet(opt.train_root)
-    for data in train_data:
-        print (data.size())
+    for lr,hr in train_data:
+        print (hr.size())
     '''
     valid_data = ValidDataset(opt.validation_root)
 
