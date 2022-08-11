@@ -58,17 +58,17 @@ class DataSet(data.Dataset):
         return lr, hr
 
     def __getitem__(self, index):
-        with h5py.File(self.h5_file, 'r') as f:
-            hr = self.hr[index]
+      
+        hr = self.hr[index]
 
-            lr = self.lr[index]
-            lr = transforms.ToTensor()(lr)
-            hr = transforms.ToTensor()(hr)
-            lr, hr = self.random_crop(lr, hr, self.patch_size, self.scale)
-            lr, hr = self.random_vertical_flip(lr, hr)
-            lr, hr = self.random_horizontal_flip(lr, hr)
-            lr, hr = self.random_rotation(lr, hr)
-            return lr, hr
+        lr = self.lr[index]
+        lr = transforms.ToTensor()(lr)
+        hr = transforms.ToTensor()(hr)
+        lr, hr = self.random_crop(lr, hr, self.patch_size, self.scale)
+        lr, hr = self.random_vertical_flip(lr, hr)
+        lr, hr = self.random_horizontal_flip(lr, hr)
+        lr, hr = self.random_rotation(lr, hr)
+        return lr, hr
 
     def __len__(self):
         with h5py.File(self.h5_file, 'r') as f:
