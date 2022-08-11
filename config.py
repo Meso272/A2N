@@ -1,6 +1,6 @@
 class DefaultConfig(object):
-    train_root = 'D:/AProgram/data/4x_div2k_file.h5'
-    validation_root = 'D:/AProgram/data/4x_div2k_file_valid.h5'
+    train_root = '/home/jinyang.liu/lossycompression/cesm-multisnapshot-5fields/CLDHGH/CESM_CLDHGH.h5'
+    validation_root = ''
     lr = 5e-4
     batch_size = 32
     num_workers = 8
