@@ -60,10 +60,12 @@ class DataSet(data.Dataset):
     def __getitem__(self, index):
       
         hr = self.hr[index]
+        print()
 
         lr = self.lr[index]
         lr = transforms.ToTensor()(lr)
         hr = transforms.ToTensor()(hr)
+        print(lr.size())
         lr, hr = self.random_crop(lr, hr, self.patch_size, self.scale)
         lr, hr = self.random_vertical_flip(lr, hr)
         lr, hr = self.random_horizontal_flip(lr, hr)
