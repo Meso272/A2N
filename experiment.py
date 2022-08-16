@@ -46,7 +46,7 @@ class SRexperiment(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
       
-        hr, lr = batch
+        lr, hr = batch
 
         #check 
        
