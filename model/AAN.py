@@ -106,12 +106,12 @@ class AAN(nn.Module):
     def __init__(self):
         super(AAN, self).__init__()
 
-        in_nc = 3
-        out_nc = 3
+        in_nc = 1
+        out_nc = 1
         nf = 40
         unf = 24
         nb = 16
-        scale = 4
+        scale = 2
 
         # AAB
         AAB_block_f = functools.partial(AAB, nf=nf)
