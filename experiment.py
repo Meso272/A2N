@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 from torch import optim
 import pytorch_lightning as pl
+from utils import data_loader
 #from torchvision import transforms
 #import torchvision.utils as vutils
 from torch.utils.data import DataLoader
