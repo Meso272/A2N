@@ -5,7 +5,6 @@ import math
 import torch
 import torch.nn as nn
 from torch import optim
-from utils import data_loader
 import pytorch_lightning as pl
 #from torchvision import transforms
 #import torchvision.utils as vutils
@@ -111,7 +110,7 @@ class SRexperiment(pl.LightningModule):
 
     @data_loader
     def train_dataloader(self):
-        train_dataset = DataSet(h5_file_root=self.cfg.train_root,path_size=self.cfg.patch_size,scale=self.cfg.scale,fix_length=self.cfg.fix_length, aug=self.cfg.aug)
+        train_dataset = DataSet(h5_file_root=self.cfg.train_root,path_size=self.cfg.patch_size,scale=self.cfg.scale,fix_length=self.cfg.fix_length,aug=self.cfg.aug)
         return DataLoader(train_dataset,
                                        batch_size=self.cfg.batch_size,
                                        num_workers=self.cfg.num_worker,
