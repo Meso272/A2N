@@ -15,8 +15,8 @@ if __name__=='__main__':
 
     #trainer = Trainer()
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str)
-    parser.add_argument("--ckpt_name", type=str)
+    #parser.add_argument("--model", type=str)
+    #parser.add_argument("--ckpt_name", type=str)
     
     
     
@@ -69,7 +69,7 @@ if __name__=='__main__':
         
         period=args.save_interval
     )
-    if args.num_gpu!=None:
+    if args.num_gpu!=0:
         gpu_list=list(range(args.num_gpu))
     else:
         gpu_list=None
