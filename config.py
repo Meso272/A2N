@@ -9,7 +9,7 @@ class DefaultConfig(object):
     fix_length= 1600
     scale = 2 
     aug = 1
-    loss_fn = "CL1"
+    loss_fn = "L1"
     gamma = None
 
     cuda = True
