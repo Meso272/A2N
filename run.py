@@ -25,11 +25,13 @@ if __name__=='__main__':
     parser.add_argument("--ckpt_file", type=str,
                         default=None)
     parser.add_argument("--num_gpu", type=int, default=1)
+    parser.add_argument("--loss_fn", type=str,
+                        default=None)
     
     
     
-    parser.add_argument("--epoch", type=int, default=4000)
-    parser.add_argument("--save_interval", type=int, default=1000)
+    parser.add_argument("--epoch", type=int, default=1000)
+    parser.add_argument("--save_interval", type=int, default=200)
     
     
 
@@ -38,7 +40,8 @@ if __name__=='__main__':
     ckpt_save_dir=args.ckpt_dir
     if not os.path.exists(ckpt_save_dir):
         os.mkdir(ckpt_save_dir)
-     
+    if args.loss_fn!=None:
+        opt.loss_fn=args.loss_fn
     #gpus=config['trainer_params']['gpus']
     #print(','.join([str(idx) for idx in gpus]))
     #os.environ['CUDA_VISIBLE_DEVICES']=','.join([str(idx) for idx in gpus])
