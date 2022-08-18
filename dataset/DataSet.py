@@ -3,6 +3,7 @@ import torch
 import glob
 import h5py
 import random
+import numpy as np
 from PIL import Image
 from torch.utils import data
 import torchvision.transforms as transforms
