@@ -70,7 +70,7 @@ def sample(net, device, dataset, cfg):
             lr = lr.squeeze(0)
             t2 = time.time()
         print(sr.size())
-        model_name = cfg.ckpt_path.split(".")[0].split("/")[-1]
+        #model_name = cfg.ckpt_path.split(".")[0].split("/")[-1]
         sr_dir = os.path.join(cfg.sample_dir,"SR")
         print(sr_dir)
         #hr_dir = os.path.join(cfg.sample_dir,"HR")
@@ -101,6 +101,7 @@ def main(cfg):
     #print("3")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     opt.sample_dir=cfg.sample_dir
+    opt.ckpt_path
     sample(model, device, dataset, opt)
     #print("4")
  

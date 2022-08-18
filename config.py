@@ -2,6 +2,7 @@ class DefaultConfig(object):
     train_root = '/home/jinyang.liu/lossycompression/cesm-multisnapshot-5fields/CLDHGH/CESM_CLDHGH.h5'
     validation_root = ''
     sample_dir = 'sample'
+    ckpt_path = ''
     lr = 5e-4
     patch_size = 64
     batch_size = 32
