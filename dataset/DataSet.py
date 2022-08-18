@@ -100,3 +100,45 @@ class ValidDataset(data.Dataset):
         with h5py.File(self.h5_root, 'r') as f:
             return len(f['HR'])
 
+class TestDataset(data.Dataset):
+    def __init__(self, dirname, scale):
+        super(TestDataset, self).__init__()
+
+        self.name  = dirname.split("/")[-1]
+        self.scale = scale
+        if "DIV" in self.name:
+            self.hr = glob.glob(os.path.join("{}_valid_HR".format(dirname), "*.png"))
+            self.lr = glob.glob(os.path.join("{}_valid_LR_bicubic".format(dirname), 
+                                             "X{}/*.png".format(scale)))
+        else:
+            '''
+            all_files = glob.glob(os.path.join(dirname, "x{}/*.png".format(scale)))
+            self.hr = [name for name in all_files if "HR" in name]
+            self.lr = [name for name in all_files if "LR" in name]
+            '''
+            self.hr = glob.glob(os.path.join(dirname, "hr_test","*.dat"))
+            self.lr = glob.glob(os.path.join(dirname, "lr_test","*.dat"))
+            
+            
+
+        self.hr.sort()
+        self.lr.sort()
+        #print(len(self.hr))
+        self.transform = transforms.Compose([
+            transforms.ToTensor()
+        ])
+
+    def __getitem__(self, index):
+        if "DIV" in self.name:
+            hr = Image.open(self.hr[index])
+            lr = Image.open(self.lr[index])
+        else:
+            hr=np.fromfile(self.hr[index],dtype=np.float32).reshape((1800,3600,1))
+            lr=np.fromfile(self.lr[index],dtype=np.float32).reshape((900,1800,1))
+        
+        filename = self.hr[index].split("/")[-1]
+
+        return self.transform(hr), self.transform(lr), filename
+
+    def __len__(self):
+        return len(self.hr)
