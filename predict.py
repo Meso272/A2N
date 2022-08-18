@@ -66,7 +66,7 @@ def sample(net, device, dataset, cfg):
             t1 = time.time()
             lr = lr.unsqueeze(0).to(device)
             with torch.no_grad():
-                sr = net(lr, cfg.scale).detach().squeeze(0)
+                sr = net(lr).detach().squeeze(0)
             lr = lr.squeeze(0)
             t2 = time.time()
         print(sr.size())
